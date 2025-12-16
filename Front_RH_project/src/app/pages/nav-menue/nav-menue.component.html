@@ -1,0 +1,38 @@
+
+  <nav class="navbar">
+    
+    <ul class="navbar-menu">
+
+      <li>
+        <a routerLink="/home" routerLinkActive="active-link">
+           Home
+        </a>
+      </li>
+      <li>
+        <a routerLink="/employe" routerLinkActive="active-link">
+           Employees
+        </a>
+      </li>
+      <li>
+        <a routerLink="/dept" routerLinkActive="active-link">
+           Departments
+        </a>
+      </li>
+      <li>
+        <a routerLink="/region" routerLinkActive="active-link">
+           Regions
+        </a>
+      </li>
+    </ul>
+
+   
+    <div class="navbar-user">
+      <span class="user-greeting">
+         Hello, <strong>{{ username }}</strong>
+      </span>
+      <button class="btn-logout" (click)="logout()">
+        Logout 
+      </button>
+    </div>
+  </nav>
+  

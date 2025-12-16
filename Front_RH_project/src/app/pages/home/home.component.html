@@ -1,0 +1,97 @@
+<div class="home-container">
+
+  <!-- 1. HERO SECTION -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <span class="badge-new">HR Tech of the Year 🏆</span>
+      <h1>Empower Your People.<br>It's <span class="highlight">Mine</span>.</h1>
+      <p>
+        The all-in-one Human Resource Management platform designed to build 
+        better cultures, streamline operations, and unlock the full potential of your workforce.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-primary">Request Demo</button>
+        <button class="btn-outline">View Features</button>
+      </div>
+    </div>
+    <div class="hero-image">
+    
+      <img src="https://img.freepik.com/free-vector/business-team-brainstorming-discussing-startup-project_74855-6909.jpg" alt="HR Team Collaboration">
+    </div>
+  </header>
+
+  <!-- 2. ABOUT US SECTION -->
+  <section class="about-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-text">
+          <h2>Redefining <span class="brand-color">Work Culture</span></h2>
+          <p class="lead">More than just software. We are your partner in people strategy.</p>
+          <p>
+            At <strong>Mine</strong>, we understand that your greatest asset is your people. 
+            Founded with a mission to humanize HR technology, we provide the tools you need 
+            to manage the entire employee lifecycle—from the first "Hello" to the next big promotion.
+          </p>
+          <ul class="feature-list">
+            <li>✅ Centralized Employee Data</li>
+            <li>✅ Compliance & Security First</li>
+            <li>✅ Employee Self-Service Portal</li>
+          </ul>
+        </div>
+        <div class="col-image">
+          <div class="image-stack">
+          
+            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Meeting" class="img-main">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="HR Manager" class="img-secondary">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. OUR SOLUTIONS SECTION -->
+  <section class="products-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Our <span class="brand-color">Solutions</span></h2>
+        <p>Everything you need to manage a modern workforce.</p>
+      </div>
+      
+      <div class="products-grid">
+        <div class="product-card" *ngFor="let p of products">
+          <div class="icon-box">{{ p.icon }}</div>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.desc }}</p>
+          <a href="#" class="link-arrow">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. FEEDBACK SECTION -->
+  <section class="reviews-section">
+    <div class="container">
+      <div class="section-header text-center">
+        <h2>Trusted by <span class="brand-color">HR Leaders</span></h2>
+        <p>Join 5,000+ companies building better workplaces.</p>
+      </div>
+
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let r of reviews">
+          <div class="review-header">
+            <img [src]="r.avatar" alt="{{ r.name }}" class="avatar">
+            <div>
+              <h4>{{ r.name }}</h4>
+              <span class="role">{{ r.role }}</span>
+            </div>
+          </div>
+          <p class="comment">"{{ r.comment }}"</p>
+          <div class="stars">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+</div>
