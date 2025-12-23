@@ -31,7 +31,14 @@ export class RegionComponent implements OnInit {
   toastMessage: string = '';
   showToast: boolean = false;
   toastType: 'success' | 'error' = 'success';
+// delete alert
 
+  isDeleteModalOpen: boolean = false;
+  regionToDelete: any = null;
+  deleteMessage: string = '';
+  deleteSubMessage: string = '';
+
+  //constructor
   constructor(private regionService: RegionService) {}
 
   ngOnInit() {
@@ -121,12 +128,42 @@ export class RegionComponent implements OnInit {
     this.openModal();
   }
 
-  deleteRegion(id: number) {
-    if(confirm('Are you sure you want to delete this region?')) {
-      this.regionService.deleteRegion(id).subscribe(() => this.loadRegions());
-      this.showNotification('Region updated successfully! ✅');
+  // 1. TRIGGER THE MODAL (Replaces the old deleteRegion logic)
+  openDeleteModal(region: any) {
+    this.regionToDelete = region;
+    this.isDeleteModalOpen = true;
 
+    // Check if Region has Departments linked to it
+    if (region.dept_count > 0) {
+      this.deleteMessage = `Supprimer "${region.name}" ?`;
+      this.deleteSubMessage = `⚠️ Attention : Cette région contient ${region.dept_count} département(s). Ils seront également supprimés définitivement.`;
+    } else {
+      this.deleteMessage = `Supprimer "${region.name}" ?`;
+      this.deleteSubMessage = `Cette region est vide , Êtes-vous sûr de vouloir supprimer cette région ?`;
     }
+  }
+
+  // 2. CONFIRM DELETE (The actual API call)
+  confirmDelete() {
+    if (this.regionToDelete) {
+      this.regionService.deleteRegion(this.regionToDelete.id).subscribe({
+        next: () => {
+          this.loadRegions();
+          this.showNotification('Région supprimée avec succès! 🗑️');
+          this.closeDeleteModal();
+        },
+        error: (err) => {
+          this.showNotification('Erreur lors de la suppression.', 'error');
+          this.closeDeleteModal();
+        }
+      });
+    }
+  }
+
+  // 3. CANCEL / CLOSE
+  closeDeleteModal() {
+    this.isDeleteModalOpen = false;
+    this.regionToDelete = null;
   }
 
   sortData(column: string) {

@@ -26,7 +26,8 @@ public class region {
     private String name;
 
     // 1. The Relationship
-    @OneToMany(mappedBy = "region", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "region", fetch = FetchType.EAGER, orphanRemoval = true)
+
     @JsonIgnore // Stop infinite recursion
     private List<dept> departments;
 

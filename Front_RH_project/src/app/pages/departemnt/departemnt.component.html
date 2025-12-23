@@ -57,7 +57,7 @@
     <div class="detail-card-actions">
       <button class="btn-icon view" (click)="openViewModal(foundDept)">View Details</button>
       <button class="btn-icon edit" (click)="editDept(foundDept)">Edit Dept</button>
-      <button class="btn-icon delete" (click)="deleteDept(foundDept.id)">Delete Dept</button>
+      <button class="btn-icon delete" (click)="openDeleteModal(foundDept)">Delete Dept</button>
     </div>
   </div>
 
@@ -91,7 +91,7 @@
           <td class="text-center action-buttons">
             <button class="btn-icon view" (click)="openViewModal(d)" title="View Details"></button>
             <button class="btn-icon edit" (click)="editDept(d)" title="Edit"></button>
-            <button class="btn-icon delete" (click)="deleteDept(d.id)" title="Delete"></button>
+            <button class="btn-icon delete" (click)="openDeleteModal(d)" title="Delete"></button>
           </td>
         </tr>
       </tbody>
@@ -211,7 +211,7 @@
 
         <!-- Name & ID -->
         <h4 class="emp-name">
-          {{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}
+          {{ selectedEmployee.FIRST_NAME }} {{ selectedEmployee.LAST_NAME }}
         </h4>
         <p class="emp-id">ID: #{{ selectedEmployee.id }}</p>
 
@@ -221,7 +221,7 @@
         <div class="details-grid">
           <div class="detail-item highlight">
             <span class="label">💰 Salary</span>
-            <span class="value salary-text">${{ selectedEmployee.salary }}</span>
+            <span class="value salary-text">${{ selectedEmployee.SALARY }}</span>
           </div>
 
           <div class="detail-item">
@@ -236,7 +236,31 @@
       </div>
     </div>
   </div>
+<!-- ========================== -->
+<!-- DELETE CONFIRMATION MODAL  -->
+<!-- ========================== -->
+<div class="modal-overlay delete-layer" *ngIf="isDeleteModalOpen">
+  <div class="modal-content delete-card">
+    
+    <!-- Warning Icon -->
+    <div class="delete-icon-wrapper">
+      <span class="delete-icon">⚠️</span>
+    </div>
 
+    <!-- Text Content -->
+    <div class="delete-body">
+      <h3>{{ deleteMessage }}</h3>
+      <p>{{ deleteSubMessage }}</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="delete-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Annuler</button>
+      <button class="btn-confirm-delete" (click)="confirmDelete()">Oui, Supprimer</button>
+    </div>
+
+  </div>
+</div>
   <!-- ========================== -->
   <!-- TOAST NOTIFICATION         -->
   <!-- ========================== -->

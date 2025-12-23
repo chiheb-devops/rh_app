@@ -38,7 +38,7 @@
             </button>
             
           
-            <button class="btn-icon delete" (click)="deleteRegion(r.id)" title="Delete">
+            <button class="btn-icon delete" (click)="openDeleteModal(r)" title="Delete">
               
             </button>
           </td>
@@ -128,7 +128,31 @@
       </div>
     </div>
   </div>
+<!-- ========================== -->
+<!-- DELETE CONFIRMATION MODAL  -->
+<!-- ========================== -->
+<div class="modal-overlay delete-layer" *ngIf="isDeleteModalOpen">
+  <div class="modal-content delete-card">
+    
+    <!-- Warning Icon -->
+    <div class="delete-icon-wrapper">
+      <span class="delete-icon">⚠️</span>
+    </div>
 
+    <!-- Text Content -->
+    <div class="delete-body">
+      <h3>{{ deleteMessage }}</h3>
+      <p>{{ deleteSubMessage }}</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="delete-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Annuler</button>
+      <button class="btn-confirm-delete" (click)="confirmDelete()">Oui, Supprimer</button>
+    </div>
+
+  </div>
+</div>
 <!-- TOAST NOTIFICATION CONTAINER -->
 <div class="toast-container" [class.show]="showToast" [class.error]="toastType === 'error'">
   <div class="toast-icon">

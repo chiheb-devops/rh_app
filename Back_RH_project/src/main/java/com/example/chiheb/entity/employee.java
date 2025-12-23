@@ -14,40 +14,41 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class employee { // 1. Renamed to PascalCase
+public class employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_seq")
     @SequenceGenerator(name = "employee_seq", sequenceName = "SEQ_EMPLOYEE", allocationSize = 1)
+
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
-    private String firstName;
+
+    private String FIRST_NAME;
 
     @Column(name = "LAST_NAME", nullable = false)
 
-    private String lastName;
+    private String LAST_NAME;
 
     @Column(name = "SALARY")
 
-    private BigDecimal salary; // 3. Changed Double to BigDecimal
+    private BigDecimal SALARY;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DEPT_ID")
     @JsonIgnore
     private dept dept;
 
-    // 2. This creates "dept_name": "IT" in the JSON response
     @JsonProperty("dept_name")
     public String getDeptName() {
         return (dept != null) ? dept.getName() : null;
     }
 
-    // 2. For the Form (Edit/Update) - CRITICAL
     @JsonProperty("dept_id")
     public Long getDeptId() {
         return (dept != null) ? dept.getId() : null;
     }
+
     @JsonProperty("region_name")
     public String getRegionName() {
         if (dept != null && dept.getRegion() != null) {
@@ -55,9 +56,9 @@ public class employee { // 1. Renamed to PascalCase
         }
         return null;
     }
-    // --- CUSTOM JSON INPUT (POST) ---
 
-    // 3. This allows you to send "dept_id": 1 in Postman to save it
+    // --- CUSTOM SETTER ---
+
     @JsonProperty("dept_id")
     public void setDeptId(Long deptId) {
         if (deptId != null) {
@@ -65,5 +66,13 @@ public class employee { // 1. Renamed to PascalCase
             d.setId(deptId);
             this.dept = d;
         }
+    }
+
+    @JsonProperty("region_id")
+    public Long getRegionId() {
+        if (dept != null && dept.getRegion() != null) {
+            return dept.getRegion().getId();
+        }
+        return null;
     }
 }

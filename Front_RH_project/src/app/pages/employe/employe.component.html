@@ -69,14 +69,17 @@
           <tbody>
             <tr *ngFor="let emp of filteredEmployeesList">
               <td>#{{ emp.id }}</td>
-              <td>{{ emp.firstName }} {{ emp.lastName }}</td>
-              <td>${{ emp.salary }}</td>
+              <td>{{ emp.FIRST_NAME }} {{ emp.LAST_NAME }}</td>
+              <td>${{ emp.SALARY }}</td>
               <td class="text-center action-buttons">
                 <button class="btn-icon view" (click)="openViewModal(emp)"></button>
               </td>
             </tr>
           </tbody>
         </table>
+        <button class="btn btn-export" (click)="exportFilteredReport()">
+        📄 Export filtred Data
+      </button>
       </div>
       
       <div class="no-results" *ngIf="filteredEmployeesList.length === 0">
@@ -99,6 +102,9 @@
         <button class="btn-clear" *ngIf="searchId" (click)="clearSearch()">✕</button>
       </div>
     </div>
+          <button class="btn btn-export" (click)="exportReport()">
+        📄 Export All Data
+      </button>
   </div>
 
   <!-- SEARCH RESULT CARD -->
@@ -106,14 +112,14 @@
     <div class="detail-card-header">
       <div class="detail-avatar"></div>
       <div class="detail-info">
-        <h3 class="detail-name">{{ filteredEmployees[0].firstName }} {{ filteredEmployees[0].lastName }}</h3>
+        <h3 class="detail-name">{{ filteredEmployees[0].FIRST_NAME }} {{ filteredEmployees[0].LAST_NAME }}</h3>
         <p class="detail-id">Employee ID: #{{ filteredEmployees[0].id }}</p>
       </div>
     </div>
     <div class="detail-card-body">
       <div class="detail-field highlight">
         <div class="detail-label">Salary</div>
-        <div class="detail-value">${{ filteredEmployees[0].salary }}</div>
+        <div class="detail-value">${{ filteredEmployees[0].SALARY }}</div>
       </div>
       <div class="detail-field">
         <div class="detail-label">Department</div>
@@ -140,11 +146,11 @@
     <th class="sortable" (click)="sortData('id')">
       ID <span>{{ getSortIcon('id') }}</span>
     </th>
-    <th class="sortable" (click)="sortData('firstName')">
-      First Name <span>{{ getSortIcon('firstName') }}</span>
+    <th class="sortable" (click)="sortData('FIRST_NAME')">
+      First Name <span>{{ getSortIcon('FIRST_NAME') }}</span>
     </th>
-    <th class="sortable" (click)="sortData('lastName')">
-      Last Name <span>{{ getSortIcon('lastName') }}</span>
+    <th class="sortable" (click)="sortData('LAST_NAME')">
+      Last Name <span>{{ getSortIcon('LAST_NAME') }}</span>
     </th>
     <th class="sortable" (click)="sortData('dept_name')">
       Department <span>{{ getSortIcon('dept_name') }}</span>
@@ -155,8 +161,8 @@
       <tbody>
         <tr *ngFor="let emp of employees">
           <td>#{{ emp.id }}</td>
-          <td>{{ emp.firstName }}</td>
-          <td>{{ emp.lastName }}</td>
+          <td>{{ emp.FIRST_NAME }}</td>
+          <td>{{ emp.LAST_NAME   }}</td>
           <td><span class="badge-dept">{{ emp.dept_name || 'Unassigned' }}</span></td>
           <td class="text-center action-buttons">
             <button class="btn-icon view" (click)="openViewModal(emp)" title="View"></button>
@@ -188,7 +194,7 @@
       <input 
         type="text" 
         class="form-control" 
-        [(ngModel)]="form.firstName" 
+        [(ngModel)]="form.FIRST_NAME" 
         name="firstName" 
         required 
         #fname="ngModel"
@@ -206,7 +212,7 @@
       <input 
         type="text" 
         class="form-control" 
-        [(ngModel)]="form.lastName" 
+        [(ngModel)]="form.LAST_NAME" 
         name="lastName" 
         required 
         #lname="ngModel"
@@ -223,7 +229,7 @@
       <input 
         type="number" 
         class="form-control" 
-        [(ngModel)]="form.salary" 
+        [(ngModel)]="form.SALARY" 
         name="salary" 
         required 
         min="1" 
@@ -291,13 +297,13 @@
       </div>
       <div class="modal-body text-center" *ngIf="selectedEmployee">
         <div class="profile-avatar"></div>
-        <h4 class="emp-name">{{ selectedEmployee.firstName }} {{ selectedEmployee.lastName }}</h4>
-        <p class="emp-id">ID: #{{ selectedEmployee.id }}</p>
+        <h4 class="emp-name">{{ selectedEmployee.FIRST_NAME }} {{ selectedEmployee.LAST_NAME }}</h4>
+        <p class="emp-id">ID: #{{ selectedEmployee.id  }}</p>
         <hr class="divider">
         <div class="details-grid">
           <div class="detail-item highlight">
             <span class="label"> Salary</span>
-            <span class="value salary-text">${{ selectedEmployee.salary }}</span>
+            <span class="value salary-text">${{ selectedEmployee.SALARY }}</span>
           </div>
           <div class="detail-item">
             <span class="label"> Department</span>

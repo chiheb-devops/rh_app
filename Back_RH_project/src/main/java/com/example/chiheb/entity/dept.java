@@ -32,7 +32,7 @@ public class dept {
     @JsonIgnore
     private region region;
 
-    @OneToMany(mappedBy = "dept", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "dept", fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<employee> employees;
 
@@ -66,7 +66,7 @@ public class dept {
                     .map(e -> {
                         Map<String, Object> map = new HashMap<>();
                         map.put("id", e.getId());
-                        map.put("name", e.getFirstName() + " " + e.getLastName());
+                        map.put("name", e.getFIRST_NAME() + " " + e.getLAST_NAME());
                         return map;
                     })
                     .collect(Collectors.toList());

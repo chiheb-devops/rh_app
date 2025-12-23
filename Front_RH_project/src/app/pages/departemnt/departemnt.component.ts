@@ -13,7 +13,7 @@ import { EmployeeService } from '../../services/employee.service';
 })
 export class DeptComponent implements OnInit {
 
-  //vars
+//vars
   departments: any[] = [];
   regions: any[] = []; 
   showEmpList: boolean = false;
@@ -34,10 +34,16 @@ export class DeptComponent implements OnInit {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-   // NEW: Toast Notification State
+   // Toast Notification State
   toastMessage: string = '';
   showToast: boolean = false;
   toastType: 'success' | 'error' = 'success';
+
+  //delete alert
+  isDeleteModalOpen: boolean = false;
+  deptToDelete: any = null;
+  deleteMessage: string = '';
+  deleteSubMessage: string = ''; 
 
 //construcotr
   constructor(
@@ -149,12 +155,43 @@ saveDept() {
     this.openModal();
   }
 
-  deleteDept(id: number) {
-    if(confirm('Are you sure you want to delete this department?')) {
-      this.deptService.deleteDepartment(id).subscribe(() => this.loadDepartments());
-      this.showNotification('departement deleted successfully! ✅')
+     // 1. TRIGGER THE MODAL for delete actiob
+  openDeleteModal(dept: any) {
+    this.deptToDelete = dept;
+    this.isDeleteModalOpen = true;
+
+    if (dept.emp_count > 0) {
+      this.deleteMessage = `Supprimer "${dept.name}" ?`;
+      this.deleteSubMessage = `⚠️ Attention : Ce département contient ${dept.emp_count} employé(s). Ils seront également supprimés définitivement.`;
+    } else {
+      this.deleteMessage = `Supprimer "${dept.name}" ?`;
+      this.deleteSubMessage = `Ce departement est vide, Êtes-vous sûr de vouloir supprimer ce département ?`;
     }
   }
+
+  // 2. CONFIRM DELETE (API)
+  confirmDelete() {
+    if (this.deptToDelete) {
+      this.deptService.deleteDepartment(this.deptToDelete.id).subscribe({
+        next: () => {
+          this.loadDepartments();
+          this.showNotification('Département supprimé avec succès! 🗑️');
+          this.closeDeleteModal();
+        },
+        error: (err) => {
+          this.showNotification('Erreur lors de la suppression.', 'error');
+          this.closeDeleteModal();
+        }
+      });
+    }
+  }
+
+  // 3. CANCEL / CLOSE delete pop up
+  closeDeleteModal() {
+    this.isDeleteModalOpen = false;
+    this.deptToDelete = null;
+  }
+
   // open Employee Details
  openEmployeeDetail(id: number) {
     this.empService.getById(id).subscribe(data => {

@@ -26,9 +26,9 @@ public class EmployeeController {
     }
 
     // GET employee by ID
-    @GetMapping("/get_emp_byID/{id}")
-    public ResponseEntity<employee> getById(@PathVariable Long id) {
-        return employeeService.getEmployeeById(id)
+    @GetMapping("/get_emp_byID/{ID}")
+    public ResponseEntity<employee> getById(@PathVariable Long ID) {
+        return employeeService.getEmployeeById(ID)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -52,9 +52,9 @@ public class EmployeeController {
     }
 
     // DELETE employee by ID
-    @DeleteMapping("/Delete_emp/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+    @DeleteMapping("/Delete_emp/{ID}")
+    public ResponseEntity<Void> delete(@PathVariable Long ID) {
+        employeeService.deleteEmployee(ID);
         return ResponseEntity.noContent().build();
     }
 }

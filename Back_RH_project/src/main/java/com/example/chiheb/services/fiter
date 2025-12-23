@@ -1,0 +1,14 @@
+
+        if ((reportName.equalsIgnoreCase("employees")) & (deptID != null)) {
+            // 1. Fetch Filtered List
+            List<employee> empl = employeeRepository.findByDeptId(deptID);
+
+            // 2. Fetch Header Info (Region & Dept Names)
+            dept d = deptrepo.findById(deptID).orElse(null);
+            Map<String, Object> parameters = null;
+            if (d != null) {
+                parameters.put("SelectedDept", d.getName()); //
+                if (d.getRegion() != null) {
+                    parameters.put("SelectedRegion", d.getRegion().getName());
+                }
+            } else
