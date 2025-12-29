@@ -100,7 +100,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.eclipse.jdt</groupId>
+            <artifactId>ecj</artifactId>
 
+        </dependency>
         <!-- 2. Groovy (Required for report expressions in older versions) -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

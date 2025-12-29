@@ -59,7 +59,7 @@ public class employee {
 
     // --- CUSTOM SETTER ---
 
-    @JsonProperty("dept_id")
+    @JsonProperty("dept_id")  // convert json text to java object 7ajtna just b valeur t3 dept_id
     public void setDeptId(Long deptId) {
         if (deptId != null) {
             dept d = new dept();
@@ -74,5 +74,10 @@ public class employee {
             return dept.getRegion().getId();
         }
         return null;
+    }
+
+
+    public BigDecimal getSalary() {
+        return this.SALARY;
     }
 }

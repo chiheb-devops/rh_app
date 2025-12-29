@@ -38,12 +38,12 @@ export class EmployeComponent implements OnInit {
   sortColumn: string = '';
   sortDirection: 'asc' | 'desc' = 'asc';
 
-  // --- FORM (UPDATED TO UPPERCASE) ---
+  
   form: any = {
     id: null,
-    FIRST_NAME: '', // Changed from firstName
-    LAST_NAME: '',  // Changed from lastName
-    SALARY: null,   // Changed from salary
+    FIRST_NAME: '', 
+    LAST_NAME: '',  
+    SALARY: null,   
     dept_id: null 
   };
 
@@ -116,44 +116,40 @@ loadEmployees() {
   }
 // --- MAIN PAGE FILTER LOGIC ---
   onRegionChange() {
-    console.log('--------------------------------');
-    console.log('🔄 REGION CHANGED');
-    console.log('👉 Selected Region ID:', this.selectedRegionId);
+ 
 
-    // Reset Dept Selection
+
     this.selectedDeptId = null;
     
     if (this.selectedRegionId) {
-      // 1. Filter Departments
+   
       this.filteredDepartments = this.allDepartments.filter(d => d.region_id == this.selectedRegionId);
       
-      console.log(`✅ Found ${this.filteredDepartments.length} Departments in this Region:`, this.filteredDepartments);
 
-      // 2. Reset Employee List (Wait for Dept selection)
+
+      
       this.filteredEmployeesList = []; 
-      console.log('⏹️ Employee list cleared (Waiting for Dept selection)');
+   
 
     } else {
-      // Reset: Show ALL employees if Region is cleared
+      
       this.filteredDepartments = [];
       this.filteredEmployeesList = [...this.employees];
-      console.log('🔄 Filter Cleared. Showing ALL employees.');
+      
     }
   }
 
   onDeptChange() {
-    console.log('--------------------------------');
-    console.log('🔄 DEPARTMENT CHANGED');
-    console.log('👉 Selected Dept ID:', this.selectedDeptId);
+  
 
     if (this.selectedDeptId) {
-      // Filter by Dept
+      
       this.filteredEmployeesList = this.employees.filter(e => e.dept_id == this.selectedDeptId);
-      console.log(`✅ Found ${this.filteredEmployeesList.length} Employees in this Dept:`, this.filteredEmployeesList);
+
     } else {
-      // If Dept cleared
+     
       this.filteredEmployeesList = [];
-      console.log('⏹️ Dept cleared. Employee list empty.');
+      
     }
   }
 
@@ -201,7 +197,7 @@ loadEmployees() {
     this.form = JSON.parse(JSON.stringify(emp));
     this.isModalOpen = true;
     
-    // PRE-FILL LOGIC
+    
     const dept = this.allDepartments.find(d => d.ID == this.form.dept_id);
     
     if (dept) {
@@ -334,4 +330,58 @@ loadEmployees() {
       }
     });
   }
+exportAttestation() {
+  console.log( this.selectedEmployee);
+  const reportName = 'report1';
+  if (this.selectedEmployee == null ) {
+this.empService.exportPdf(reportName,).subscribe({
+           
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'employee_details_report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+     
+        this.showNotification('Employee file exported successfully! ✅');
+      },
+      error: (err) => {
+        console.error('Export failed', err);
+        this.showNotification('Failed to download report.', 'error');
+      }
+    });
+  }
+  else {
+    const region_id = this.selectedRegionId;
+    const dept_id = this.selectedDeptId;  
+    const id = this.selectedEmployee.id;
+    
+
+   
+
+    
+    this.empService.exportPdf(reportName, region_id, dept_id, id).subscribe({
+           
+      next: (blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'employee_details_report.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+     
+        this.showNotification('Employee file exported successfully! ✅');
+      },
+      error: (err) => {
+        console.error('Export failed', err);
+        this.showNotification('Failed to download report.', 'error');
+      }
+    });
+  }
+}
 }

@@ -20,13 +20,15 @@ public class ReportController {
 
 
 
+
     @GetMapping("/{reportName}")
     public ResponseEntity<byte[]> generateReport( @PathVariable String reportName,
+
                                                   @RequestParam(name = "region_id", required = false) Long region_id,
-                                                  @RequestParam(name = "deptId", required = false) Long dept_id) throws FileNotFoundException, JRException {
-        System.out.println(reportName + region_id + "  " + dept_id);
+                                                  @RequestParam(name = "deptId", required = false) Long dept_id ,@RequestParam(name = "id", required = false)  Long id) throws FileNotFoundException, JRException {
+        System.out.println(reportName +" id "+id+" reg "+   region_id+"  dept "+dept_id );
         // 1. Call Service:
-        byte[] data = reportService.exportReport(reportName, "pdf",region_id, dept_id);
+        byte[] data = reportService.exportReport(reportName, "pdf",region_id, dept_id,id);
 
         // 2. Set Headers: This tells the browser to download the file
         HttpHeaders headers = new HttpHeaders();
@@ -39,4 +41,10 @@ public class ReportController {
                 .body(data);
 
     }
+
+
+
+
+
+
 }

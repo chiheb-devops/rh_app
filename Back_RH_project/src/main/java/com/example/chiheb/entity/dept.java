@@ -36,7 +36,7 @@ public class dept {
     @JsonIgnore
     private List<employee> employees;
 
-    // --- JSON PROPERTIES ---
+
 
     @JsonProperty("region_name")
     public String getRegionName() { return (region != null) ? region.getName() : null; }

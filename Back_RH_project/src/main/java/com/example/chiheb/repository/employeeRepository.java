@@ -12,4 +12,10 @@ public interface employeeRepository extends JpaRepository<employee, Long> {
     List<employee> findBydept_id(Long dept_id);
 
     List<employee> findEmployeesByRegionId(Long regionId);
+
+
 }
+
+
+
+

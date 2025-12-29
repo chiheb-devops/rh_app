@@ -31,7 +31,7 @@ getById(ID: number): Observable<any> {
   }
 
   //export to PDF
-  exportPdf(reportName: string, region_id?: number, dept_id?: number): Observable<Blob> {
+  exportPdf(reportName: string, region_id?: number, dept_id?: number, id?: number): Observable<Blob> {
       let params = new HttpParams();
       if (region_id) {
     params = params.set('region_id', region_id.toString());
@@ -39,13 +39,16 @@ getById(ID: number): Observable<any> {
   if (dept_id) {
     params = params.set('deptId', dept_id.toString());
   }
-      let url = `http://localhost:8080/api/reports/${reportName}`;
+  if (id) {
+    params = params.set('id', id.toString());
+  }
       
-    if (region_id) url += `SelectedRegion=${region_id}&`;
-    if (dept_id) url += `SelectedDept=${dept_id}`;
     return this.http.get(`http://localhost:8080/api/reports/${reportName}`, {
     params: params,
     responseType: 'blob'
   });
 }
+
+
+
 }

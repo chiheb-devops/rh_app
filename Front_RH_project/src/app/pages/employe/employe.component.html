@@ -102,8 +102,11 @@
         <button class="btn-clear" *ngIf="searchId" (click)="clearSearch()">✕</button>
       </div>
     </div>
-          <button class="btn btn-export" (click)="exportReport()">
+        <button class="btn btn-export" (click)="exportReport()">
         📄 Export All Data
+      </button>
+      <button class="btn btn-export" (click)="exportAttestation()" style="margin-left: 60%; ">
+        📄 get attestation
       </button>
   </div>
 
@@ -315,6 +318,9 @@
           </div>
         </div>
       </div>
+      <button class="btn btn-export" (click)="exportAttestation()" style="margin-left: 60%; ">
+        📄 get attestation
+      </button>
       <div class="modal-footer justify-content-center">
         <button class="btn btn-primary" (click)="closeViewModal()">Close</button>
       </div>

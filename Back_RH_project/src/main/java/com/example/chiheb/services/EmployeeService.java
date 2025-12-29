@@ -19,22 +19,22 @@ public class EmployeeService {
     // Get all employees
     public List<employee> getAllEmployees() {
         return empRepo.findAll();
-    }
+    }  // list traja3 0 ou n employee (0 return empty list)
 
     // Get employee by ID
     public Optional<employee> getEmployeeById(Long id) {
         return empRepo.findById(id);
-    }
+    }   // optional traja3 0 ou 1 emploee (0 return null)
 
     // Add single employee
     public employee addEmployee(employee e) {
         return empRepo.save(e);
-    }
+    }  // signle object "employee"
 
     // Add multiple employees
     public List<employee> addEmployees(List<employee> employees) {
         return empRepo.saveAll(employees);
-    }
+    }  // list of object employee (0 or n)
 
     // Update employee
     public employee updateEmployee(employee e) {
